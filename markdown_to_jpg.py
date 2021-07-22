@@ -1,8 +1,11 @@
+import os
 import pdfkit
 from markdown import markdown
+import fitz
+# import pyMuPdf
 
 # input_filename = 'test.md'
-output_filename = 'e:\\temp\\testdddddd.pdf'
+output_filename = 'd:\\temp\\testdddddd.pdf'
 
 # with open(input_filename, encoding='utf-8') as f:
 #     text = f.read()
@@ -28,6 +31,22 @@ t='''
 
 * 当家长捕捉到孩子嫉妒的细节时，要避免责怪，可以引导孩子说出自己的感受。
 
+* 在学校的亲子活动中，家长**看到别的孩子**做手工好，顺便夸了几句，自家的宝贝就嘟着小嘴一脸不开心。
+
+* 当家长捕捉到孩子嫉妒的细节时，要避免责怪，可以引导孩子说出自己的感受。
+
+* 在学校的亲子活动中，家长**看到别的孩子**做手工好，顺便夸了几句，自家的宝贝就嘟着小嘴一脸不开心。
+
+* 当家长捕捉到孩子嫉妒的细节时，要避免责怪，可以引导孩子说出自己的感受。
+
+* 在学校的亲子活动中，家长**看到别的孩子**做手工好，顺便夸了几句，自家的宝贝就嘟着小嘴一脸不开心。
+
+* 当家长捕捉到孩子嫉妒的细节时，要避免责怪，可以引导孩子说出自己的感受。
+
+* 在学校的亲子活动中，家长**看到别的孩子**做手工好，顺便夸了几句，自家的宝贝就嘟着小嘴一脸不开心。
+
+* 当家长捕捉到孩子嫉妒的细节时，要避免责怪，可以引导孩子说出自己的感受。
+
 * 在学校的亲子活动中，家长看到别的孩子做手工好，顺便*夸了几句*，自家的宝贝就嘟着小嘴一脸不开心。当家长捕捉到孩子嫉妒的细节时，要避免责怪，可以引导孩子说出自己的感受。
 '''
 
@@ -45,7 +64,7 @@ html = '''
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
         <title>linenum</title>
-        <link rel="stylesheet" href="file:///I:/py/test/my.css">
+        <link rel="stylesheet" href="file:///d:/py/test/my.css">
     </head>
     <body>
         <article class="markdown-body">
@@ -65,13 +84,22 @@ html=html.format(text)
 wkhtmltopdf = r'C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe'  # 指定wkhtmltopdf
 configuration = pdfkit.configuration(wkhtmltopdf=wkhtmltopdf)
 
-with open('test_h.html', 'w', encoding='utf-8') as f:
-    f.write(html)
 
 options = {
     'encoding': 'utf-8',
     'enable-local-file-access': None
 }
-pdfkit.from_string(html, output_filename, configuration=configuration, options=options)  # HTML转PDF
+# pdfkit.from_string(html, output_filename, configuration=configuration, options=options)  # HTML转PDF
 # pdfkit.from_file('test_h.html',output_filename, configuration=configuration, options=options)
+# os.startfile(output_filename)
 
+pdf=fitz.open('d:\\temp\\testdddddd.pdf')
+for pg in range(0, pdf.pageCount):
+    page = pdf[pg]
+    # 设置缩放和旋转系数
+    trans = fitz.Matrix(1.3, 1.3).preRotate(0)
+    pm = page.getPixmap(matrix=trans, alpha=False)
+    # 开始写图像
+    pm.writePNG('d:\\temp\\' + str(pg) + ".png")
+    # pm.writeJPG('d:\\temp\\' + str(pg) + ".jpg")
+pdf.close()

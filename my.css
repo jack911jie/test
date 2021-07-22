@@ -221,3 +221,11 @@ table tr th {
  font-weight: bold;
   background-color: #F0F0F0;
 }
+
+.markdown-body{
+  width:680px;
+  font-family:"微软雅黑"; 
+  font-size:25px;
+  color:rgb(218, 195, 122); 
+
+}
