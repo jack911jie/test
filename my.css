@@ -88,6 +88,7 @@ li {
 li p {
   /* Needs !important to override rule above. */
   margin: 0.5em 0 !important;
+  text-indent:0
 }
 
 /* Smaller spacing for sub-lists */
@@ -222,10 +223,14 @@ table tr th {
   background-color: #F0F0F0;
 }
 
+p{
+    text-indent:2em;
+}
 .markdown-body{
+
   width:680px;
-  font-family:"微软雅黑"; 
-  font-size:25px;
+  font-family:"楷体"; 
+  font-size:45px;
   color:rgb(218, 195, 122); 
 
 }
