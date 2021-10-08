@@ -129,7 +129,7 @@ class TxtFormat:
         # draw=ImageDraw.Draw(img)
 
         logging.info(txt)
-        # print(txt)
+        print(txt)
         n=0
         for t in txt:              
             m=0
