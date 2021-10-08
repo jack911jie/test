@@ -19,7 +19,7 @@ class TxtFormat:
         total=ziShu_z+ziShu_e*0.5
         return total
 
-    def fonts(self,font_name,font_size,font_config='e:/temp/test/fonts_list.config'):
+    def fonts(self,font_name,font_size,font_config='d:/temp/test/fonts_list.config'):
         with open(font_config,'r',encoding='utf-8') as f:
             lines=f.readlines()
             _line=''
@@ -111,7 +111,7 @@ class TxtFormat:
         for tt in outTxt:
             for t in tt:
                 para_num+=1
-    
+
         return {'txt':outTxt,'para_num':para_num}
 
     def put_txt_img(self,draw,tt,total_dis,xy,dis_line,fill,font_name,font_size,addSPC='None'):
@@ -123,13 +123,12 @@ class TxtFormat:
             Indent='no'
             
         # txt=self.split_txt(total_dis,font_size,t,Indent='no')
-        txt=self.split_txt_Chn_eng(total_dis,font_size,tt,Indent=Indent)['txt']
+        txt=self.split_txt_Chn_eng(wid=total_dis,font_size=font_size,txt_input=tt,Indent=Indent)['txt']
         # font_sig = self.fonts('丁永康硬笔楷书',40)
         num=len(txt)   
         # draw=ImageDraw.Draw(img)
 
         logging.info(txt)
-        print(txt)
         n=0
         for t in txt:              
             m=0
@@ -175,23 +174,23 @@ class Block(TxtFormat):
         # img.show()
         return img
 
-    def draw_txt_block(self,txt,wid=600,y_add=0,color='#ffffff',radii=0,alpha=1,font_size=30,dis_line=30,indent='yes'):
-        txt_to_put=self.split_txt_Chn_eng(wid=wid,font_size=font_size,txt_input=txt,Indent=indent)
-        print(font_size,dis_line,txt_to_put)
+    def draw_txt_block(self,txt,wid=600,total_dis=200,y_add=0,color='#ffffff',radii=0,alpha=1,font_size=30,dis_line=30,indent='yes'):
+        txt_to_put=self.split_txt_Chn_eng(wid=total_dis,font_size=font_size,txt_input=txt,Indent=indent)
+        # print(font_size,dis_line,txt_to_put)
         txts_para_num=txt_to_put['para_num']
         line_para=font_size if dis_line<= font_size else dis_line
         # h_block=int((txts_para_num*font_size+txts_para_num*line_para)*1.3)
         h_block=int((font_size+dis_line)*txts_para_num)
-        print(h_block)
+        # print(h_block)
         img=self.draw_rct(w=wid,h=h_block+y_add,color=color,radii=radii,alpha=alpha)
         return img
 
     def put_txt_to_img(self,box_wid=300,bg='#ffffff',radii=0,alpha=1,txt='测试',total_dis=250,xy=[10,10],dis_line=30,fill='#333333',font_name='楷体',font_size=30,addSPC='None'):
         if addSPC=='None':
-            indent='no'
+            indent_draw='no'
         else:
-            indent='yes'
-        img=self.draw_txt_block(txt=txt,wid=box_wid,y_add=xy[1],color=bg,radii=radii,alpha=alpha,font_size=font_size,dis_line=dis_line,indent=indent)
+            indent_draw='yes'
+        img=self.draw_txt_block(txt=txt,wid=box_wid,total_dis=total_dis,y_add=xy[1],color=bg,radii=radii,alpha=alpha,font_size=font_size,dis_line=dis_line,indent=indent_draw)
         draw=ImageDraw.Draw(img)
         self.put_txt_img(draw,tt=txt,total_dis=total_dis,xy=xy,dis_line=dis_line,fill=fill,font_name=font_name,font_size=font_size,addSPC=addSPC)
         return img
@@ -242,6 +241,7 @@ if __name__=='__main__':
     txt='''
 第一句是一切有为法，而不是一切法，这两种说法差别很大，一切法包括有为法和无为法如果说一切法空，那是错的，因为无为法不空。
 因为无为法不空1。因为无为法不空2。因为无为法不空3。因为无为法不空4。因为无为法不空5。因为无为法不空6。
+因为无为法不空1。因为无为法不空2。因为无为法不空3。因为无为法不空4。因为无为法不空5。因为无为法不空6因为无为法不空1。因为无为法不空2。因为无为法不空3。因为无为法不空4。因为无为法不空5。因为无为法不空6
 '''
     # rct=pic.draw_txt_block(txt=txt,wid=600,color='#ffffff',radii=0,alpha=1,font_size=30,dis_line=30,indent='yes')
     # rct.show()
