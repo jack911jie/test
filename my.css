@@ -225,12 +225,14 @@ table tr th {
 
 p{
     text-indent:2em;
+    font-size: 1.2em;
 }
 .markdown-body{
 
   width:680px;
+  line-height: 1.8em;
   font-family:"楷体"; 
-  font-size:45px;
-  color:rgb(218, 195, 122); 
+  font-size:50px;
+  color:rgb(139, 117, 45); 
 
 }
