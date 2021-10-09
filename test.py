@@ -19,7 +19,7 @@ class TxtFormat:
         total=ziShu_z+ziShu_e*0.5
         return total
 
-    def fonts(self,font_name,font_size,font_config='d:/temp/test/fonts_list.config'):
+    def fonts(self,font_name,font_size,font_config='e:/temp/test/fonts_list.config'):
         with open(font_config,'r',encoding='utf-8') as f:
             lines=f.readlines()
             _line=''
@@ -46,13 +46,19 @@ class TxtFormat:
                         pre_txt=pre_txt+t
                         wd_lng=wd_lng+1
                 else:
-                    if wd_lng+self.char_len(t)>zi_per_line: #先判断是这个英文单词+原有拼接的字符串长度是否>每行字符数
-                        txtGrp.append(pre_txt) #大于，则保持原有的拼接字符串，不再加入该英文单词
-                        pre_txt=' '+t #新的英文单词另起一行
-                        wd_lng=self.char_len(t) #拼接字符串长度清零重计
-                    else:                    
+                    if t in ['”','’','，','。','！','：','；','.',',','!']:
                         pre_txt=pre_txt+' '+t
                         wd_lng=wd_lng+self.char_len(t)
+                        
+                    else:
+                        if wd_lng+self.char_len(t)>zi_per_line: #先判断是这个英文单词+原有拼接的字符串长度是否>每行字符数
+                            txtGrp.append(pre_txt) #大于，则保持原有的拼接字符串，不再加入该英文单词
+                            pre_txt=' '+t #新的英文单词另起一行
+                            wd_lng=self.char_len(t) #拼接字符串长度清零重计
+                        else:                    
+                            pre_txt=pre_txt+' '+t
+                            wd_lng=wd_lng+self.char_len(t)
+                       
                 
                 if wd_lng>zi_per_line:
                     wd_lng=0                
@@ -238,16 +244,11 @@ if __name__=='__main__':
     pic=Block()
     # rct=pic.draw_rct(w=200,h=700,color='#33ee99',radii=190,alpha=1)
     # rct.show()
-    txt='''
-第一句是一切有为法，而不是一切法，这两种说法差别很大，一切法包括有为法和无为法如果说一切法空，那是错的，因为无为法不空。
-因为无为法不空1。因为无为法不空2。因为无为法不空3。因为无为法不空4。因为无为法不空5。因为无为法不空6。
-因为无为法不空1。因为无为法不空2。因为无为法不空3。因为无为法不空4。因为无为法不空5。因为无为法不空6因为无为法不空1。因为无为法不空2。因为无为法不空3。因为无为法不空4。因为无为法不空5。因为无为法不空6
-'''
+    txt=r'   观自在菩萨，行深般若波罗蜜多时，照见五蕴皆空，度一切苦厄。舍利子，色不异空，空不异色，色即是空，空即是色，受想行识，亦复如是。舍利子，是诸法空相，不生不灭，不垢不净，不增不减。是故空中无色，无受想行识，无眼耳鼻舌身意，无色声香味触法，无眼界，乃至无意识界，无无明，亦无无明尽，乃至无老死，亦无老死尽。无苦集灭道，无智亦无得。以无所得故。菩提萨埵，依般若波罗蜜多故，心无挂碍。无挂碍故，无有恐怖，远离颠倒梦想，究竟涅盘。三世诸佛，依般若波罗蜜多故，得阿耨多罗三藐三菩提。故知般若波罗蜜多，是大神咒，是大明咒，是无上咒，是无等等咒，能除一切苦，真实不虚。故说般若波罗蜜多咒，即说咒曰：揭谛揭谛，波罗揭谛，波罗僧揭谛，菩提萨婆诃。'
     # rct=pic.draw_txt_block(txt=txt,wid=600,color='#ffffff',radii=0,alpha=1,font_size=30,dis_line=30,indent='yes')
     # rct.show()
-    blk=pic.put_txt_to_img(box_wid=400,bg='#ffffff',radii=0,alpha=1,txt=txt,total_dis=350,xy=(25,30),dis_line=60,fill='#222222',font_name='杨任东竹石体',font_size=30,addSPC='None')
+    blk=pic.put_txt_to_img(box_wid=440,bg='#ffffff',radii=0,alpha=1,txt=txt,total_dis=340,xy=(25,30),dis_line=60,fill='#222222',font_name='楷体',font_size=30,addSPC='None')
     blk.show()
 
-    # 貌似和total_dis有关！！！！
 
     # tt(200,200,'优设标题',200)
