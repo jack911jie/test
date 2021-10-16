@@ -2,6 +2,8 @@ import os
 import sys
 import numpy as np
 import matplotlib.pyplot as plt
+plt.rcParams['font.sans-serif']=['SimHei'] #用来正常显示中文标签
+plt.rcParams['axes.unicode_minus']=False #用来正常显示负号
 
 
 class Estimate:
@@ -33,6 +35,7 @@ class Estimate:
         return rent,run_fund,a_rate,b_rate
 
     def draw(self):
+        plt.figure(1,figsize=(8,5))
         # for i in ran
         # y_rent=selrent
         # y_run_fund=run_fund
@@ -46,7 +49,9 @@ class Estimate:
         y_b_income=[]
         y_a_true_income=[]
 
-        for i in np.linspace(500,20000,100):
+        # x=np.linspace(500,20000,100)
+
+        for i in np.linspace(500,20000,30):
             factor=self.est(i)
             x.append(i)
             y_rent.append(factor[0])
@@ -63,11 +68,22 @@ class Estimate:
             # plt.plot(i,y_b_income,color='green',marker='o',markersize=1)
             # plt.plot(i,y_rent,color='blue',marker='o',markersize=1)
             # plt.plot(i,y_run_fund,color='purple',marker='o',markersize=1)
-        plt.plot(x,y_a_income,color='red',marker='o',markersize=1)
-        plt.plot(x,y_b_income,color='green',marker='o',markersize=1)
-        plt.plot(x,y_rent,color='blue',marker='o',markersize=1)
-        plt.plot(x,y_run_fund,color='purple',marker='o',markersize=1)
-        plt.plot(x,y_a_true_income,color='orange',marker='o',markersize=1)
+
+            # note that plot returns a list of lines.  The "l_a_income, = plot" usage
+            # extracts the first element of the list into l_a_income using tuple
+            # unpacking.  So l_a_income is a Line2D instance, not a sequence of lines
+        l_a_income,=plt.plot(x,y_a_income,color='red',marker='o',markersize=1)
+        l_b_income,=plt.plot(x,y_b_income,color='green',marker='o',markersize=1)
+        l_rent,=plt.plot(x,y_rent,color='blue',marker='o',markersize=1,linestyle='dashed')
+        l_run_fund,=plt.plot(x,y_run_fund,color='purple',marker='o',markersize=1,linestyle='dashed')
+        l_a_true_income,=plt.plot(x,y_a_true_income,color='orange',marker='o',markersize=1)
+        
+        plt.xlabel('月营业收入（元）',fontsize=14)
+        plt.ylabel('收入/成本（元）',fontsize=14)
+        plt.xticks([0,6000,8000,10000,12000,15000])
+
+        plt.legend(handles=[l_a_income,l_b_income,l_rent,l_run_fund,l_a_true_income],
+                    labels=['甲方收入','乙方收入','成本-房屋租金','成本-运营成本','甲方实际收入'],loc='best')
         # plt.plot(12,13,color='red',marker='o')
         plt.show()
 
