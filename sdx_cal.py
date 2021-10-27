@@ -87,10 +87,19 @@ class Estimate:
         # plt.plot(12,13,color='red',marker='o')
         plt.show()
 
+    def cal(self,amt):
+        tt=''
+        for num in amt:
+            rent,run_fund,a_rate,b_rate=self.est(num)
+            income_a=(num-rent-run_fund)*a_rate
+            income_b=(num-rent-run_fund)*b_rate
+            tt=tt+'营收：{},\na收入:{},\nb收入：{}\n\n'.format(num,income_a,income_b)
+        return tt
 
 if __name__=='__main__':
     vv=Estimate()
-    vv.draw()
-
+    # vv.draw()
+    res=vv.cal([4000,5000,6000,7000])
+    print(res)
 
     # tt(200,200,'优设标题',200)
